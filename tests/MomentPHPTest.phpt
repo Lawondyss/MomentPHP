@@ -8,6 +8,15 @@ use Tester\TestCase;
 
 class MomentPHPTest extends TestCase
 {
+  /** @var MomentPHP/MomentPHP */
+  private $moment;
+
+
+  protected function setUp()
+  {
+    $this->moment = new MomentPHP('1980-12-07 19:21:42', null, 'Europe/Prague');
+  }
+
   public function testValidDateTime()
   {
     $type = 'MomentPHP\MomentPHP';
@@ -177,6 +186,54 @@ class MomentPHPTest extends TestCase
     Assert::exception(function() {
       new MomentPHP('2000', 'Ym');
     }, 'MomentPHP\ErrorException', 'DateTime not create. Probably the wrong format.');
+  }
+
+
+  public function testTimestamp()
+  {
+    Assert::same('345061302', $this->moment->timestamp());
+  }
+
+
+  public function testSeconds()
+  {
+    Assert::same('42', $this->moment->seconds());
+    Assert::same('42', $this->moment->second());
+  }
+
+
+  public function testMinutes()
+  {
+    Assert::same('21', $this->moment->minutes());
+    Assert::same('21', $this->moment->minute());
+  }
+
+
+  public function testHours()
+  {
+    Assert::same('19', $this->moment->hours());
+    Assert::same('19', $this->moment->hour());
+  }
+
+
+  public function testDays()
+  {
+    Assert::same('07', $this->moment->days());
+    Assert::same('07', $this->moment->day());
+  }
+
+
+  public function testMonths()
+  {
+    Assert::same('12', $this->moment->months());
+    Assert::same('12', $this->moment->month());
+  }
+
+
+  public function testYears()
+  {
+    Assert::same('1980', $this->moment->years());
+    Assert::same('1980', $this->moment->year());
   }
 }
 

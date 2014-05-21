@@ -63,6 +63,163 @@ class MomentPHP
 
 
   /**
+   * Seconds from the Unix Epoch (January 1 1970 00:00:00 GMT) to date time.
+   *
+   * @return string
+   */
+  public function timestamp()
+  {
+    $timestamp = $this->format('U');
+
+    return $timestamp;
+  }
+
+
+  /**
+   * Seconds of date time with leading zeros.
+   *
+   * @return string
+   */
+  public function seconds()
+  {
+    $seconds = $this->dateTime->format('s');
+
+    return $seconds;
+  }
+
+
+  /**
+   * Alias for method seconds().
+   *
+   * @inherit
+   */
+  public function second()
+  {
+    return $this->seconds();
+  }
+
+
+  /**
+   * Minutes of date time with leading zeros.
+   *
+   * @return string
+   */
+  public function minutes()
+  {
+    $minutes = $this->format('i');
+
+    return $minutes;
+  }
+
+
+  /**
+   * Alias for method minutes().
+   *
+   * @inherit
+   */
+  public function minute()
+  {
+    return $this->minutes();
+  }
+
+
+  /**
+   * 24-hour format of an hour of date time with leading zeros.
+   *
+   * @return string
+   */
+  public function hours()
+  {
+    $hours = $this->format('H');
+
+    return $hours;
+  }
+
+
+  /**
+   * Alias for method hours().
+   *
+   * @inherit
+   */
+  public function hour()
+  {
+    return $this->hours();
+  }
+
+
+  /**
+   * Days of date time with leading zeros.
+   *
+   * @return string
+   */
+  public function days()
+  {
+    $days = $this->format('d');
+
+    return $days;
+  }
+
+
+  /**
+   * Alias for method days().
+   *
+   * @inherit
+   */
+  public function day()
+  {
+    return $this->days();
+  }
+
+
+  /**
+   * Numeric representation of a month of date time with leading zeros.
+   *
+   * @return string
+   */
+  public function months()
+  {
+    $months = $this->format('m');
+
+    return $months;
+  }
+
+
+  /**
+   * Alias for method months().
+   *
+   * @inherit
+   */
+  public function month()
+  {
+    return $this->months();
+  }
+
+
+  /**
+   * A full numeric representation of a year of date time.
+   *
+   * @return string
+   */
+  public function years()
+  {
+    $years = $this->format('Y');
+
+    return $years;
+  }
+
+
+  /**
+   * Alias for method years().
+   *
+   * @inherit
+   */
+  public function year()
+  {
+    return $this->years();
+  }
+
+
+  /**
    * @param mixed $dateTime
    * @throws InvalidArgumentException
    */
