@@ -223,6 +223,12 @@ class MomentPHPTest extends TestCase
   }
 
 
+  public function testWeek()
+  {
+    Assert::same('49', $this->moment->week());
+  }
+
+
   public function testMonths()
   {
     Assert::same('12', $this->moment->months());

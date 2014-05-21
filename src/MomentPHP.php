@@ -172,6 +172,19 @@ class MomentPHP
 
 
   /**
+   * ISO-8601 week number of year, weeks starting on Monday.
+   *
+   * @return string
+   */
+  public function week()
+  {
+    $week = $this->format('W');
+
+    return $week;
+  }
+
+
+  /**
    * Numeric representation of a month of date time with leading zeros.
    *
    * @return string
