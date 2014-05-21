@@ -241,6 +241,36 @@ class MomentPHPTest extends TestCase
     Assert::same('1980', $this->moment->years());
     Assert::same('1980', $this->moment->year());
   }
+
+
+  public function testDayOfWeek()
+  {
+    Assert::same('7', $this->moment->dayOfWeek());
+  }
+
+
+  public function testDayOfYear()
+  {
+    Assert::same('342', $this->moment->dayOfYear());
+  }
+
+
+  public function testNameOfDayShort()
+  {
+    Assert::same('Sun', $this->moment->NameOfDayShort());
+  }
+
+
+  public function testNameOfDayLong()
+  {
+    Assert::same('Sunday', $this->moment->NameOfDayLong());
+  }
+
+
+  public function testDaySuffix()
+  {
+    Assert::same('th', $this->moment->daySuffix());
+  }
 }
 
 $testCase = new MomentPHPTest;

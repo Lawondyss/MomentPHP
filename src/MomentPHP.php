@@ -233,6 +233,76 @@ class MomentPHP
 
 
   /**
+   * ISO-8601 numeric representation of the day of the week. 1 (for Monday) through 7 (for Sunday).
+   *
+   * @return string
+   */
+  public function dayOfWeek()
+  {
+    $ofWeek = $this->format('N');
+
+    return $ofWeek;
+  }
+
+
+  /**
+   * The day of the year (starting from 1).
+   *
+   * @return string
+   */
+  public function dayOfYear()
+  {
+    $ofYear = $this->format('z');
+
+    // transform starting from 1
+    $ofYear++;
+
+    // back to string
+    settype($ofYear, 'string');
+
+    return $ofYear;
+  }
+
+
+  /**
+   * A textual representation of the day of week, three letters.
+   *
+   * @return string
+   */
+  public function NameOfDayShort()
+  {
+    $name = $this->format('D');
+
+    return $name;
+  }
+
+
+  /**
+   * A full textual representation of the day of the week.
+   *
+   * @return string
+   */
+  public function NameOfDayLong()
+  {
+    $name = $this->format('l');
+
+    return $name;
+  }
+
+
+  /**
+   * English ordinal suffix for the day of the month, 2 characters, st, nd, rd or th.
+   *
+   * @return string
+   */
+  public function daySuffix()
+  {
+    $suffix = $this->format('S');
+
+    return $suffix;
+  }
+
+  /**
    * @param mixed $dateTime
    * @throws InvalidArgumentException
    */
