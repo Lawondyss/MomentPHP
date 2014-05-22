@@ -1,9 +1,11 @@
 {
   "name": "lawondyss/moment-php",
   "description": "MomentPHP is date library for parsing, validating, manipulating, and formatting dates.",
+  "license": "GPL-3.0",
   "authors": [
     {
-      "name": "Ladislav Vondráček"
+      "name": "Ladislav Vondráček",
+      "email": "lawondyss@gmail.com"
     }
   ],
   "require": {
