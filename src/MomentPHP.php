@@ -513,6 +513,48 @@ class MomentPHP
 
     return $return;
   }
+
+
+  /**
+   * @param int $number
+   * @param string $unit
+   * @return string
+   * @throws InvalidArgumentException
+   */
+  private function getIntervalExpression($number, $unit)
+  {
+    $validUnits = array(
+      'sec' => self::SECONDS,
+      'second' => self::SECONDS,
+      'seconds' => self::SECONDS,
+      'min' => self::MINUTES,
+      'minute' => self::MINUTES,
+      'minutes' => self::MINUTES,
+      'hour' => self::HOURS,
+      'hours' => self::HOURS,
+      'day' => self::DAYS,
+      'days' => self::DAYS,
+      'month' => self::MONTHS,
+      'months' => self::MONTHS,
+      'year' => self::YEARS,
+      'years' => self::YEARS
+    );
+
+    if (!is_int($number)) {
+      throw new InvalidArgumentException('The number must be integer.');
+    }
+
+    if (!array_key_exists($unit, $validUnits)) {
+      $options = array_keys($validUnits);
+      $options = join(', ', $options);
+      throw new InvalidArgumentException('The unit must be from this options: ' . $options);
+    }
+
+    $unit = $validUnits[$unit];
+    $expression = $number . ' ' . $unit;
+
+    return $expression;
+  }
 }
 
 
