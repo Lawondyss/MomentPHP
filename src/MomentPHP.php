@@ -10,6 +10,19 @@ namespace MomentPHP;
 
 class MomentPHP
 {
+  const SECONDS = 'seconds';
+
+  const MINUTES = 'minutes';
+
+  const HOURS = 'hours';
+
+  const DAYS = 'days';
+
+  const MONTHS = 'months';
+
+  const YEARS = 'years';
+
+
   /** @var \DateTime */
   private $dateTime;
 
