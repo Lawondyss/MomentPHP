@@ -280,7 +280,7 @@ class MomentPHP
    *
    * @return string
    */
-  public function NameOfDayShort()
+  public function nameOfDayShort()
   {
     $name = $this->format('D');
 
@@ -293,7 +293,7 @@ class MomentPHP
    *
    * @return string
    */
-  public function NameOfDayLong()
+  public function nameOfDayLong()
   {
     $name = $this->format('l');
 

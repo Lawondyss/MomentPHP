@@ -258,13 +258,13 @@ class MomentPHPTest extends TestCase
 
   public function testNameOfDayShort()
   {
-    Assert::same('Sun', $this->moment->NameOfDayShort());
+    Assert::same('Sun', $this->moment->nameOfDayShort());
   }
 
 
   public function testNameOfDayLong()
   {
-    Assert::same('Sunday', $this->moment->NameOfDayLong());
+    Assert::same('Sunday', $this->moment->nameOfDayLong());
   }
 
 
