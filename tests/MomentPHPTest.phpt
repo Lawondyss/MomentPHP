@@ -268,9 +268,9 @@ class MomentPHPTest extends TestCase
   }
 
 
-  public function testDaySuffix()
+  public function testDayWithSuffix()
   {
-    Assert::same('th', $this->moment->daySuffix());
+    Assert::same('7th', $this->moment->dayWithSuffix());
   }
 }
 

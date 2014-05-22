@@ -306,11 +306,12 @@ class MomentPHP
    *
    * @return string
    */
-  public function daySuffix()
+  public function dayWithSuffix()
   {
     $suffix = $this->format('S');
+    $day = $this->format('j');
 
-    return $suffix;
+    return $day . $suffix;
   }
 
   /**
