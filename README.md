@@ -97,7 +97,7 @@ $moment = new MomentPHP\MomentPHP(null, null, $timezone);
 ## Display
 For examples we have:
 ```php
-$moment = new MomentPHP\MomentPHP('1980-12-07 19:21:42');
+$moment = new MomentPHP\MomentPHP('1980-12-07 19:21:42', null, 'Europe/Prague');
 ```
 
 ### Format()
@@ -152,6 +152,16 @@ var_dump( $moment->nameOfDayShort() ); // string(3) "Sun"
 var_dump( $moment->nameOfDayLong() ); // string(6) "Sunday"
 
 var_dump( $moment->dayWithSuffix() ); // string(3) "7th"
+
+var_dump( $moment->daysInMonth() ); // string(2) "31"
+
+var_dump( $moment->nameOfMonthShort() ); // string(3) "Dec"
+
+var_dump( $moment->nameOfMonthLong() ); // string(8) "December"
+
+var_dump( $moment->hourWithSuffix() ); // string(3) "7PM"
+
+var_dump( $moment->isoDate() ); // string(25) "1980-12-07T19:21:42+01:00"
 ```
 
 

@@ -272,6 +272,36 @@ class MomentPHPTest extends TestCase
   {
     Assert::same('7th', $this->moment->dayWithSuffix());
   }
+
+
+  public function testDaysInMonth()
+  {
+    Assert::same('31', $this->moment->daysInMonth());
+  }
+
+
+  public function testNameOfMonthShort()
+  {
+    Assert::same('Dec', $this->moment->nameOfMonthShort());
+  }
+
+
+  public function testNameOfMonthLong()
+  {
+    Assert::same('December', $this->moment->nameOfMonthLong());
+  }
+
+
+  public function testHourWithSuffix()
+  {
+    Assert::same('7PM', $this->moment->hourWithSuffix());
+  }
+
+
+  public function testIsoDate()
+  {
+    Assert::same('1980-12-07T19:21:42+01:00', $this->moment->isoDate());
+  }
 }
 
 $testCase = new MomentPHPTest;

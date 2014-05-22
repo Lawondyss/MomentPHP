@@ -314,6 +314,72 @@ class MomentPHP
     return $day . $suffix;
   }
 
+
+  /**
+   * Number of days in the given month, 28 through 31.
+   *
+   * @return string
+   */
+  public function daysInMonth()
+  {
+    $count = $this->format('t');
+
+    return $count;
+  }
+
+
+  /**
+   * A short textual representation of a month, three letters.
+   *
+   * @return string
+   */
+  public function nameOfMonthShort()
+  {
+    $name = $this->format('M');
+
+    return $name;
+  }
+
+
+  /**
+   * A full textual representation of a month.
+   *
+   * @return string
+   */
+  public function nameOfMonthLong()
+  {
+    $name = $this->format('F');
+
+    return $name;
+  }
+
+
+  /**
+   * 12-hour format of an hour AM or PM suffix.
+   *
+   * @return string
+   */
+  public function hourWithSuffix()
+  {
+    $hour = $this->format('gA');
+
+    return $hour;
+  }
+
+
+  /**
+   * ISO 8601 format date.
+   *
+   * @return string
+   */
+  public function isoDate()
+  {
+    $isoDate = $this->format('c');
+
+    return $isoDate;
+  }
+
+
   /**
    * @param mixed $dateTime
    * @throws InvalidArgumentException
