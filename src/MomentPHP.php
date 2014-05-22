@@ -176,11 +176,22 @@ class MomentPHP
    *
    * @return string
    */
+  public function weeks()
+  {
+    $weeks = $this->format('W');
+
+    return $weeks;
+  }
+
+
+  /**
+   * Alias for method weeks().
+   *
+   * @inherit
+   */
   public function week()
   {
-    $week = $this->format('W');
-
-    return $week;
+    return $this->weeks();
   }
 
 
