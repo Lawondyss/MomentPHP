@@ -1,6 +1,6 @@
 # MomentPHP
 
-MomentPHP is date library for parsing, validating, manipulating, and formatting dates.
+MomentPHP is date library for parsing, manipulating and formatting dates.
 It's inspired by the JavaScript library [Moment.js].
 
 
