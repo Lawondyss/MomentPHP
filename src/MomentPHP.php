@@ -415,6 +415,24 @@ class MomentPHP
   }
 
 
+  /**
+   * Subtracts an amount of days, months, years, hours, minutes and seconds.
+   *
+   * @param int $number
+   * @param string $unit
+   * @return $this
+   */
+  public function sub($number, $unit)
+  {
+    $expression = $this->getIntervalExpression($number, $unit);
+    $interval = \DateInterval::createFromDateString($expression);
+
+    $this->dateTime->sub($interval);
+
+    return $this;
+  }
+
+
   /************************************ INTERNAL ************************************/
 
   /**

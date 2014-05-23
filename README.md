@@ -174,6 +174,14 @@ $unit = 'day';
 var_dump( $moment->add($number, $unit)->days() ); // string(2) "08"
 ```
 
+### sub()
+Subtracts an amount of days, months, years, hours, minutes and seconds. Acceptable units is same as for add().
+```php
+$number = 1;
+$unit = 'day';
+var_dump( $moment->sub($number, $unit)->days() ); // string(2) "06"
+```
+
 
 
 [Moment.js]:http://momentjs.com/

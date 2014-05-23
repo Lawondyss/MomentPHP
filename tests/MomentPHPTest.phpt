@@ -364,6 +364,16 @@ class MomentPHPTest extends TestCase
     Assert::type('MomentPHP\MomentPHP', $this->moment->add(1, 'days'));
     Assert::same('09', $this->moment->days());
   }
+
+
+  public function testSub()
+  {
+    Assert::type('MomentPHP\MomentPHP', $this->moment->sub(1, 'day'));
+    Assert::same('06', $this->moment->days());
+
+    Assert::type('MomentPHP\MomentPHP', $this->moment->sub(1, 'days'));
+    Assert::same('05', $this->moment->days());
+  }
 }
 
 $testCase = new MomentPHPTest;
