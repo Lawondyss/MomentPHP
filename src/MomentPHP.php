@@ -407,7 +407,6 @@ class MomentPHP
   public function add($number, $unit)
   {
     $expression = $this->getIntervalExpression($number, $unit);
-    $expression = '+ ' . $expression;
     $interval = \DateInterval::createFromDateString($expression);
 
     $this->dateTime->add($interval);
