@@ -397,6 +397,25 @@ class MomentPHP
 
   /************************************ MANIPULATE ************************************/
 
+  /**
+   * Adds an amount of days, months, years, hours, minutes and seconds.
+   *
+   * @param int $number
+   * @param string $unit
+   * @return $this
+   */
+  public function add($number, $unit)
+  {
+    $expression = $this->getIntervalExpression($number, $unit);
+    $expression = '+ ' . $expression;
+    $interval = \DateInterval::createFromDateString($expression);
+
+    $this->dateTime->add($interval);
+
+    return $this;
+  }
+
+
   /************************************ INTERNAL ************************************/
 
   /**

@@ -164,6 +164,16 @@ var_dump( $moment->hourWithSuffix() ); // string(3) "7PM"
 var_dump( $moment->isoDate() ); // string(25) "1980-12-07T19:21:42+01:00"
 ```
 
+## Manipulate
+
+### add()
+Adds an amount of days, months, years, hours, minutes and seconds. Acceptable units: sec, second, seconds, min, minute, minutes, hour, hours, day, days, month, months, year, years
+```php
+$number = 1;
+$unit = 'day';
+var_dump( $moment->add($number, $unit)->days() ); // string(2) "08"
+```
+
 
 
 [Moment.js]:http://momentjs.com/
