@@ -304,6 +304,58 @@ class MomentPHPTest extends TestCase
   }
 
 
+  /**
+   * @dataProvider getValidIntervalUnits
+   */
+  public function testValidIntervalUnits($unit)
+  {
+    Assert::type('MomentPHP\MomentPHP', $this->moment->add(1, $unit));
+  }
+
+  public function getValidIntervalUnits()
+  {
+    return array(
+      array('sec'),
+      array('second'),
+      array('seconds'),
+      array('min'),
+      array('minute'),
+      array('minutes'),
+      array('hour'),
+      array('hours'),
+      array('day'),
+      array('days'),
+      array('month'),
+      array('months'),
+      array('year'),
+      array('years'),
+    );
+  }
+
+
+  /**
+   * @dataProvider getInvalidIntervalUnits
+   */
+  public function testInvalidIntervalUnits($unit)
+  {
+    Assert::exception(function() use ($unit) {
+      $this->moment->add(1, $unit);
+    }, 'MomentPHP\InvalidArgumentException');
+  }
+
+  public function getInvalidIntervalUnits()
+  {
+    return array(
+      array('_seconds'),
+      array('_minutes'),
+      array('_hours'),
+      array('_days'),
+      array('_months'),
+      array('_years'),
+    );
+  }
+
+
   public function testAdd()
   {
     $this->moment->add(1, 'day');
