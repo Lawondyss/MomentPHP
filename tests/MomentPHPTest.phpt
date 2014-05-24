@@ -304,6 +304,25 @@ class MomentPHPTest extends TestCase
   }
 
 
+  public function testNameOfTimezone()
+  {
+    Assert::same('Europe/Prague', $this->moment->nameOfTimezone());
+  }
+
+
+  public function testTimezoneOffset()
+  {
+    $moment = new MomentPHP(null, null, 'Greenwich');
+    Assert::same(0, $moment->timezoneOffset());
+
+    $moment = new MomentPHP(null, null, 'Europe/Prague');
+    Assert::same(7200, $moment->timezoneOffset());
+
+    $moment = new MomentPHP(null, null, 'America/New_York');
+    Assert::same(-14400, $moment->timezoneOffset());
+  }
+
+
   /**
    * @dataProvider getValidIntervalUnits
    */

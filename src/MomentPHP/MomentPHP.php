@@ -395,6 +395,32 @@ class MomentPHP
   }
 
 
+  /**
+   * Timezone identifier.
+   *
+   * @return string
+   */
+  public function nameOfTimezone()
+  {
+    $name = $this->format('e');
+
+    return $name;
+  }
+
+
+  /**
+   * Timezone offset in seconds, -43200 through 50400.
+   *
+   * @return int
+   */
+  public function timezoneOffset()
+  {
+    $seconds = $this->format('Z');
+
+    return (int)$seconds;
+  }
+
+
   /************************************ MANIPULATE ************************************/
 
   /**
