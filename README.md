@@ -73,7 +73,7 @@ If the string is unrecognized or confusing, you can add its format. The format a
 $string = '1980-07-12';
 $format = 'Y-d-m';
 
-$moment = new MomentPHP\MomenthPHP($string, $format);
+$moment = new MomentPHP\MomentPHP($string, $format);
 ```
 
 The format may be a field with more formats. Then use the first acceptable format.
@@ -168,10 +168,27 @@ var_dump( $moment->nameOfTimezone() ); string(13) "Europe/Prague"
 var_dump( $moment->timezoneOffset() ); int(3600)
 ```
 
+### diff()
+Get the difference in seconds.
+```php
+$momentB = new MomentPHP('2000-01-01 00:00:00', 'Y-m-d H:i:s', 'Europe/Prague');
+var_dump( $momentB->diff($moment) ); // int(601619898)
+```
+To get the difference in another unit of measurement, pass that measurement as the second argument.
+Acceptable units: sec, second, seconds, min, minute, minutes, hour, hours, day, days, month, months, year, years
+```php
+var_dump( $momentB->diff($moment, 'months') ); // int(227)
+```
+By default return number rounded down. If you want the floating point number, pass `TRUE` as the third argument.
+```php
+var_dump( $momentB->diff($moment, 'months', true) ); // double(227.81)
+```
+
+
 ## Manipulate
 
 ### add()
-Adds an amount of days, months, years, hours, minutes and seconds. Acceptable units: sec, second, seconds, min, minute, minutes, hour, hours, day, days, month, months, year, years
+Adds an amount of days, months, years, hours, minutes and seconds. Units is same as for method `diff()`.
 ```php
 $number = 1;
 $unit = 'day';
@@ -189,7 +206,7 @@ var_dump( $moment->add($fields)->format('d|Y') ); // string(7) "08|1981"
 ```
 
 ### sub()
-Its equal as add(), bud for subtracts.
+It's equal as add(), bud for subtracts.
 ```php
 $number = 1;
 $unit = 'day';

@@ -411,6 +411,79 @@ class MomentPHPTest extends TestCase
   }
 
 
+  public function testDiff()
+  {
+    $date = '1980-12-07 19:21:41';
+    $zone = 'Europe/Prague';
+
+    $moment = new MomentPHP($date, null, $zone);
+    Assert::same(1, $this->moment->diff($moment));
+
+    $datetime = new DateTime($date, new DateTimeZone($zone));
+    Assert::same(1, $this->moment->diff($datetime));
+
+    $string = $date . '+01:00';
+    Assert::same(1, $this->moment->diff($string));
+  }
+
+
+  /**
+   * @dataProvider getValidDiffUnits
+   */
+  public function testDiffWithUnits($unit, $result)
+  {
+    $moment = new MomentPHP('2000-01-01 00:00:00', 'Y-m-d H:i:s', 'Europe/Prague');
+    Assert::same($result, $moment->diff($this->moment, $unit));
+  }
+
+  public function getValidDiffUnits()
+  {
+    return array(
+      array('sec', 601619898),
+      array('second', 601619898),
+      array('seconds', 601619898),
+      array('min', 10026998),
+      array('minute', 10026998),
+      array('minutes', 10026998),
+      array('hour', 167116),
+      array('hours', 167116),
+      array('day', 6963),
+      array('days', 6963),
+      array('month', 227),
+      array('months', 227),
+      array('year', 19),
+      array('years', 19),
+    );
+  }
+
+
+  /**
+   * @dataProvider getFloatValidDiffUnits
+   */
+  public function testFloatDiffWithUnits($unit, $result)
+  {
+    $moment = new MomentPHP('2000-01-01 00:00:00', 'Y-m-d H:i:s', 'Europe/Prague');
+    Assert::same($result, $moment->diff($this->moment, $unit, true));
+  }
+
+  public function getFloatValidDiffUnits()
+  {
+    return array(
+      array('min', 10026998.3),
+      array('minute', 10026998.3),
+      array('minutes', 10026998.3),
+      array('hour', 167116.64),
+      array('hours', 167116.64),
+      array('day', 6963.19),
+      array('days', 6963.19),
+      array('month', 227.81),
+      array('months', 227.81),
+      array('year', 19.08),
+      array('years', 19.08),
+    );
+  }
+
+
   public function testIsLeapYear()
   {
     $moment = new MomentPHP('2012', 'Y');

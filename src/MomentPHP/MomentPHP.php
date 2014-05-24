@@ -421,6 +421,92 @@ class MomentPHP
   }
 
 
+  /**
+   * Return the difference in seconds.
+   *
+   * @param MomentPHP|\DateTime|string|int $dateTime
+   * @param string $unit
+   * @param bool $asFloat
+   * @return int
+   * @throws InvalidArgumentException
+   */
+  public function diff($dateTime, $unit = 'seconds', $asFloat = false)
+  {
+    if ($dateTime instanceof MomentPHP) {
+      $diffMoment = $dateTime;
+    }
+    elseif ($dateTime instanceof \DateTime || is_string($dateTime) || is_int($dateTime)) {
+      $diffMoment = new self($dateTime);
+    }
+    else {
+      throw new InvalidArgumentException('Invalid type of datetime to difference.');
+    }
+
+    $difference = $this->timestamp() - $diffMoment->timestamp();
+
+    $negative = false;
+    if ($difference < 0) {
+      $negative = true;
+      $difference = abs($difference);
+    }
+
+    $unit = $this->normalizeUnits($unit);
+
+    switch ($unit) {
+      case self::SECONDS:
+        $diff = $difference;
+        break;
+
+      case self::MINUTES:
+        $diff = $difference / 60;
+        break;
+
+      case self::HOURS:
+        $diff = $difference / (60 * 60);
+        break;
+
+      case self::DAYS:
+        $diff = $difference / (24 * 60 * 60);
+        break;
+
+      case self::MONTHS:
+        $months = (int)$this->months() - (int)$diffMoment->months();
+        $days = (int)$this->days() - (int)$diffMoment->days();
+        $avgDaysInMonth = ((int)$this->daysInMonth() + (int)$diffMoment->daysInMonth()) / 2;
+
+        $diff = ((int)$this->years() - (int)$diffMoment->years()) * 12 + $months + $days / $avgDaysInMonth;
+
+        if ($days < 0) {
+          $diff -= 1;
+        }
+        break;
+
+      case self::YEARS:
+        $months = (int)$this->months() - (int)$diffMoment->months();
+        if ($months >= 0) {
+          $diff = (int)$this->years() - (int)$diffMoment->years();
+        }
+        else {
+          $diff = (int)$this->years() - (int)$diffMoment->years() + ($months / 12);
+        }
+        break;
+    }
+
+    if ($negative) {
+      $diff *= -1;
+    }
+
+    if ($asFloat) {
+      $diff = round($diff, 2);
+    }
+    else {
+      $diff = (int)floor($diff);
+    }
+
+    return $diff;
+  }
+
+
   /************************************ MANIPULATE ************************************/
 
   /**
@@ -453,8 +539,8 @@ class MomentPHP
   /**
    * Subtracts an amount of days, months, years, hours, minutes and seconds.
    *
-   * @param \DateInterval|array||int $number
-   * @param string $unit
+   * @param \DateInterval|array|int $number
+   * @param string|null $unit
    * @return $this
    */
   public function sub($number, $unit = null)
