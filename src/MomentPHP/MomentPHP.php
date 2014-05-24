@@ -400,14 +400,19 @@ class MomentPHP
   /**
    * Adds an amount of days, months, years, hours, minutes and seconds.
    *
-   * @param int $number
+   * @param \DateInterval|int $number
    * @param string $unit
    * @return $this
    */
-  public function add($number, $unit)
+  public function add($number, $unit = null)
   {
-    $expression = $this->getIntervalExpression($number, $unit);
-    $interval = \DateInterval::createFromDateString($expression);
+    if ($number instanceof \DateInterval) {
+      $interval = $number;
+    }
+    elseif (is_int($number)) {
+      $expression = $this->getIntervalExpression($number, $unit);
+      $interval = \DateInterval::createFromDateString($expression);
+    }
 
     $this->dateTime->add($interval);
 
@@ -418,14 +423,19 @@ class MomentPHP
   /**
    * Subtracts an amount of days, months, years, hours, minutes and seconds.
    *
-   * @param int $number
+   * @param \DateInterval|int $number
    * @param string $unit
    * @return $this
    */
-  public function sub($number, $unit)
+  public function sub($number, $unit = null)
   {
-    $expression = $this->getIntervalExpression($number, $unit);
-    $interval = \DateInterval::createFromDateString($expression);
+    if ($number instanceof \DateInterval) {
+      $interval = $number;
+    }
+    elseif (is_int($number)) {
+      $expression = $this->getIntervalExpression($number, $unit);
+      $interval = \DateInterval::createFromDateString($expression);
+    }
 
     $this->dateTime->sub($interval);
 

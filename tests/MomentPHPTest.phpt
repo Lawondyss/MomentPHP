@@ -363,6 +363,10 @@ class MomentPHPTest extends TestCase
 
     Assert::type('MomentPHP\MomentPHP', $this->moment->add(1, 'days'));
     Assert::same('09', $this->moment->days());
+
+    $interval = DateInterval::createFromDateString('1 day');
+    Assert::type('MomentPHP\MomentPHP', $this->moment->add($interval));
+    Assert::same('10', $this->moment->days());
   }
 
 
@@ -373,6 +377,10 @@ class MomentPHPTest extends TestCase
 
     Assert::type('MomentPHP\MomentPHP', $this->moment->sub(1, 'days'));
     Assert::same('05', $this->moment->days());
+
+    $interval = DateInterval::createFromDateString('1 day');
+    Assert::type('MomentPHP\MomentPHP', $this->moment->sub($interval));
+    Assert::same('04', $this->moment->days());
   }
 }
 
