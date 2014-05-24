@@ -194,7 +194,7 @@ var_dump( $moment->sub($number, $unit)->days() ); // string(2) "06"
 
 ## Query
 
-### isLeapYear
+### isLeapYear()
 Returns `TRUE` if that year is a leap year, and `FALSE` if it is not.
 ```php
 $moment = new MomentPHP\MomentPHP('2012', 'Y');
@@ -202,6 +202,16 @@ var_dump( $moment->isLeapYear() ); // bool(true)
 
 $moment = new MomentPHP\MomentPHP('2013', 'Y');
 var_dump( $moment->isLeapYear() ); // bool(false)
+```
+
+### isDST()
+Checks if the current moment is in daylight savings time.
+```php
+$moment = new MomentPHP\MomentPHP('06', 'm');
+var_dump( $moment->isDST() ); // bool(true)
+
+$moment = new MomentPHP\MomentPHP('12', 'm');
+var_dump( $moment->isDST() ); // bool(false)
 ```
 
 

@@ -466,6 +466,19 @@ class MomentPHP
   }
 
 
+  /**
+   * Whether or not the date is in daylight saving time.
+   *
+   * @return bool
+   */
+  public function isDST()
+  {
+    $isDST = $this->format('I');
+
+    return (bool)$isDST;
+  }
+
+
   /************************************ INTERNAL ************************************/
 
   /**

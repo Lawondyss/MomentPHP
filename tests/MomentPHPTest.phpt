@@ -400,6 +400,16 @@ class MomentPHPTest extends TestCase
     $moment = new MomentPHP('2013', 'Y');
     Assert::false($moment->isLeapYear());
   }
+
+
+  public function testIsDaylightSavingTime()
+  {
+    $moment = new MomentPHP('06', 'm');
+    Assert::true($moment->isDST());
+
+    $moment = new MomentPHP('12', 'm');
+    Assert::false($moment->isDST());
+  }
 }
 
 $testCase = new MomentPHPTest;
