@@ -663,6 +663,24 @@ class MomentPHP
    */
   private function getIntervalExpression($number, $unit)
   {
+    if (!is_int($number)) {
+      throw new InvalidArgumentException('The number must be integer.');
+    }
+
+    $unit = $this->normalizeUnits($unit);
+    $expression = $number . ' ' . $unit;
+
+    return $expression;
+  }
+
+
+  /**
+   * @param string $unit
+   * @return string mixed
+   * @throws InvalidArgumentException
+   */
+  private function normalizeUnits($unit)
+  {
     $validUnits = array(
       'sec' => self::SECONDS,
       'second' => self::SECONDS,
@@ -680,10 +698,6 @@ class MomentPHP
       'years' => self::YEARS
     );
 
-    if (!is_int($number)) {
-      throw new InvalidArgumentException('The number must be integer.');
-    }
-
     if (!array_key_exists($unit, $validUnits)) {
       $options = array_keys($validUnits);
       $options = join(', ', $options);
@@ -691,9 +705,8 @@ class MomentPHP
     }
 
     $unit = $validUnits[$unit];
-    $expression = $number . ' ' . $unit;
 
-    return $expression;
+    return $unit;
   }
 }
 
