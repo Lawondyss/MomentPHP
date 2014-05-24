@@ -451,6 +451,21 @@ class MomentPHP
   }
 
 
+  /************************************ QUERY ************************************/
+
+  /**
+   * Whether it's a leap year.
+   *
+   * @return bool
+   */
+  public function isLeapYear()
+  {
+    $isLeap = $this->format('L');
+
+    return (bool)$isLeap;
+  }
+
+
   /************************************ INTERNAL ************************************/
 
   /**

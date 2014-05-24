@@ -390,6 +390,16 @@ class MomentPHPTest extends TestCase
     Assert::type('MomentPHP\MomentPHP', $this->moment->sub($field));
     Assert::same('03|1979', $this->moment->format('d|Y'));
   }
+
+
+  public function testIsLeapYear()
+  {
+    $moment = new MomentPHP('2012', 'Y');
+    Assert::true($moment->isLeapYear());
+
+    $moment = new MomentPHP('2013', 'Y');
+    Assert::false($moment->isLeapYear());
+  }
 }
 
 $testCase = new MomentPHPTest;

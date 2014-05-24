@@ -192,6 +192,18 @@ $unit = 'day';
 var_dump( $moment->sub($number, $unit)->days() ); // string(2) "06"
 ```
 
+## Query
+
+### isLeapYear
+Returns `TRUE` if that year is a leap year, and `FALSE` if it is not.
+```php
+$moment = new MomentPHP\MomentPHP('2012', 'Y');
+var_dump( $moment->isLeapYear() ); // bool(true)
+
+$moment = new MomentPHP\MomentPHP('2013', 'Y');
+var_dump( $moment->isLeapYear() ); // bool(false)
+```
+
 
 
 [Moment.js]:http://momentjs.com/
