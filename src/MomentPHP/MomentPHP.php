@@ -479,6 +479,18 @@ class MomentPHP
   }
 
 
+  /**
+   * Check if a variable is a MomentPHP object.
+   *
+   * @param mixed $moment
+   * @return bool
+   */
+  public function isMomentPHP($moment)
+  {
+    return ($moment instanceof MomentPHP);
+  }
+
+
   /************************************ INTERNAL ************************************/
 
   /**

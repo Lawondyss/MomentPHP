@@ -410,6 +410,14 @@ class MomentPHPTest extends TestCase
     $moment = new MomentPHP('12', 'm');
     Assert::false($moment->isDST());
   }
+
+
+  public function testIsMomentPHP()
+  {
+    Assert::true($this->moment->isMomentPHP(new MomentPHP));
+
+    Assert::false($this->moment->isMomentPHP(new DateTime));
+  }
 }
 
 $testCase = new MomentPHPTest;

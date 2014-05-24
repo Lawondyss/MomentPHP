@@ -214,6 +214,13 @@ $moment = new MomentPHP\MomentPHP('12', 'm');
 var_dump( $moment->isDST() ); // bool(false)
 ```
 
+### isMomentPHP()
+Check if a variable is a MomentPHP object.
+```php
+var_dump( $moment->isMomentPHP(new MomentPHP\MomentPHP) ); // bool(true)
+var_dump( $moment->isMomentPHP(new DateTime) ); // bool(false)
+```
+
 
 
 [Moment.js]:http://momentjs.com/
