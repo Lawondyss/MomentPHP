@@ -109,7 +109,7 @@ var_dump( $moment->format('d/m/Y') ); // string(10) "07/12/1980"
 ### Timestamp()
 Return number seconds from the Unix Epoch.
 ```php
-var_dump( $moment->timestamp() ); // string(9) "345061302"
+var_dump( $moment->timestamp() ); // int(345061302)
 ```
 ### Partials from date time
 ```php

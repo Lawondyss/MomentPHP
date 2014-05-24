@@ -80,13 +80,13 @@ class MomentPHP
   /**
    * Seconds from the Unix Epoch (January 1 1970 00:00:00 GMT) to date time.
    *
-   * @return string
+   * @return int
    */
   public function timestamp()
   {
     $timestamp = $this->format('U');
 
-    return $timestamp;
+    return (int)$timestamp;
   }
 
 

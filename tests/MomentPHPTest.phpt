@@ -191,7 +191,7 @@ class MomentPHPTest extends TestCase
 
   public function testTimestamp()
   {
-    Assert::same('345061302', $this->moment->timestamp());
+    Assert::same(345061302, $this->moment->timestamp());
   }
 
 
