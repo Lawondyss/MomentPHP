@@ -400,7 +400,7 @@ class MomentPHP
   /**
    * Adds an amount of days, months, years, hours, minutes and seconds.
    *
-   * @param \DateInterval|int $number
+   * @param \DateInterval|array|int $number
    * @param string $unit
    * @return $this
    */
@@ -408,6 +408,10 @@ class MomentPHP
   {
     if ($number instanceof \DateInterval) {
       $interval = $number;
+    }
+    elseif (is_array($number)) {
+      $expression = $this->getIntervalExpressionFromArray($number);
+      $interval = \DateInterval::createFromDateString($expression);
     }
     elseif (is_int($number)) {
       $expression = $this->getIntervalExpression($number, $unit);
@@ -423,7 +427,7 @@ class MomentPHP
   /**
    * Subtracts an amount of days, months, years, hours, minutes and seconds.
    *
-   * @param \DateInterval|int $number
+   * @param \DateInterval|array||int $number
    * @param string $unit
    * @return $this
    */
@@ -431,6 +435,10 @@ class MomentPHP
   {
     if ($number instanceof \DateInterval) {
       $interval = $number;
+    }
+    elseif (is_array($number)) {
+      $expression = $this->getIntervalExpressionFromArray($number);
+      $interval = \DateInterval::createFromDateString($expression);
     }
     elseif (is_int($number)) {
       $expression = $this->getIntervalExpression($number, $unit);
@@ -558,6 +566,26 @@ class MomentPHP
     }
 
     return $return;
+  }
+
+
+  /**
+   * @param array $numbers
+   * @return string
+   * @throws InvalidArgumentException
+   */
+  private function getIntervalExpressionFromArray(array $numbers)
+  {
+    if (count($numbers) === 0) {
+      throw new InvalidArgumentException('Count items must be nonzero.');
+    }
+
+    $expressions = array();
+    foreach ($numbers as $unit => $number) {
+      $expressions[] = $this->getIntervalExpression($number, $unit);
+    }
+
+    return join(' ', $expressions);
   }
 
 

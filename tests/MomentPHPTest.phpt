@@ -367,6 +367,10 @@ class MomentPHPTest extends TestCase
     $interval = DateInterval::createFromDateString('1 day');
     Assert::type('MomentPHP\MomentPHP', $this->moment->add($interval));
     Assert::same('10', $this->moment->days());
+
+    $field = array('days' => 1, 'years' => 1);
+    Assert::type('MomentPHP\MomentPHP', $this->moment->add($field));
+    Assert::same('11|1981', $this->moment->format('d|Y'));
   }
 
 
@@ -381,6 +385,10 @@ class MomentPHPTest extends TestCase
     $interval = DateInterval::createFromDateString('1 day');
     Assert::type('MomentPHP\MomentPHP', $this->moment->sub($interval));
     Assert::same('04', $this->moment->days());
+
+    $field = array('days' => 1, 'years' => 1);
+    Assert::type('MomentPHP\MomentPHP', $this->moment->sub($field));
+    Assert::same('03|1979', $this->moment->format('d|Y'));
   }
 }
 

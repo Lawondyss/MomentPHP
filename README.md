@@ -173,9 +173,19 @@ $number = 1;
 $unit = 'day';
 var_dump( $moment->add($number, $unit)->days() ); // string(2) "08"
 ```
+Adds instance of class DateInterval.
+```php
+$interval = DateInterval('1 day');
+var_dump( $moment->add($interval)->days() ); // string(2) "08"
+```
+Adds array with parameters for loop add(). [unit => number]
+```php
+$fields = array('days' => 1, 'years' => 1);
+var_dump( $moment->add($fields)->format('d|Y') ); // string(7) "08|1981"
+```
 
 ### sub()
-Subtracts an amount of days, months, years, hours, minutes and seconds. Acceptable units is same as for add().
+Its equal as add(), bud for subtracts.
 ```php
 $number = 1;
 $unit = 'day';
