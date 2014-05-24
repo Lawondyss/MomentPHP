@@ -163,9 +163,9 @@ var_dump( $moment->hourWithSuffix() ); // string(3) "7PM"
 
 var_dump( $moment->isoDate() ); // string(25) "1980-12-07T19:21:42+01:00"
 
-var_dump( $moment->nameOfTimezone() ); string(13) "Europe/Prague"
+var_dump( $moment->nameOfTimezone() ); // string(13) "Europe/Prague"
 
-var_dump( $moment->timezoneOffset() ); int(3600)
+var_dump( $moment->timezoneOffset() ); // int(3600)
 ```
 
 ### diff()
