@@ -530,6 +530,27 @@ class MomentPHP
   }
 
 
+  /**
+   * The DateTime object as array. Field contains years, months, days, hours, minutes, second and timezone offset.
+   *
+   * @return array
+   */
+  public function asArray()
+  {
+    $dateField = array(
+      self::SECONDS => $this->seconds(),
+      self::MINUTES => $this->minutes(),
+      self::HOURS => $this->hours(),
+      self::DAYS => $this->days(),
+      self::MONTHS => $this->months(),
+      self::YEARS => $this->years(),
+      'timezoneOffset' => $this->timezoneOffset(),
+    );
+
+    return $dateField;
+  }
+
+
   /************************************ MANIPULATE ************************************/
 
   /**

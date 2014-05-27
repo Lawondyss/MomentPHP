@@ -325,6 +325,21 @@ class MomentPHPTest extends TestCase
   }
 
 
+  public function testAsArray()
+  {
+    $expected = array(
+      'years' => '1980',
+      'months' => '12',
+      'days' => '07',
+      'hours' => '19',
+      'minutes' => '21',
+      'seconds' => '42',
+      'timezoneOffset' => 3600,
+    );
+    Assert::equal($expected, $this->moment->asArray());
+  }
+
+
   /**
    * @dataProvider getValidIntervalUnits
    */
