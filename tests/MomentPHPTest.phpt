@@ -25,6 +25,8 @@ class MomentPHPTest extends TestCase
 
     Assert::type($type, new MomentPHP(new DateTime));
 
+    Assert::type($type, new MomentPHP(new MomentPHP));
+
     Assert::type($type, new MomentPHP('now'));
 
     Assert::type($type, new MomentPHP(1));

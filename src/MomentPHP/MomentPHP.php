@@ -28,7 +28,7 @@ class MomentPHP
 
 
   /**
-   * @param \DateTime|string|int|null $dateTime Class \DateTime or string representing the time or timestamp or null for now.
+   * @param \DateTime|MomentPHP|string|int|null $dateTime Instance of classes \DateTime or MomentPHP or string representing the time or timestamp or null for now.
    * @param array|string|null $format Field formats or simple formatting options, see http://php.net/manual/en/datetime.createfromformat.php
    * @param \DateTimeZone|string|null $timeZone Supported Timezones, see http://php.net/manual/en/timezones.php
    */
@@ -47,12 +47,35 @@ class MomentPHP
     elseif ($dateTime instanceof \DateTime) {
       $this->dateTime = $dateTime;
     }
+    elseif ($dateTime instanceof MomentPHP) {
+      $this->dateTime = $dateTime->dateTime;
+    }
     elseif (is_string($dateTime)) {
       $this->dateTime = $this->fromFormat($dateTime, $format, $timeZone);
     }
     elseif (is_int($dateTime)) {
       $this->dateTime = $this->fromFormat($dateTime, 'U', $timeZone);
     }
+  }
+
+
+  /**
+   * @return MomentPHP
+   */
+  public function __clone()
+  {
+    $cloneMoment = new self($this);
+
+    return $cloneMoment;
+  }
+
+
+  /**
+   * @return \DateTime
+   */
+  public function getDateTime()
+  {
+    return $this->dateTime;
   }
 
 
@@ -614,6 +637,7 @@ class MomentPHP
     // invalid if...
     if (
       isset($dateTime) && // ...exists and...
+      !($dateTime instanceof MomentPHP) && // ...not MomentPHP
       !($dateTime instanceof \DateTime) && // ...not \DateTime
       !is_string($dateTime) && // ...not string
       !is_int($dateTime) || // ...not integer
