@@ -453,7 +453,7 @@ class MomentPHP
    * @return int
    * @throws InvalidArgumentException
    */
-  public function diff($dateTime, $unit = 'seconds', $asFloat = false)
+  public function diff($dateTime, $unit = self::SECONDS, $asFloat = false)
   {
     if ($dateTime instanceof MomentPHP) {
       $diffMoment = $dateTime;
