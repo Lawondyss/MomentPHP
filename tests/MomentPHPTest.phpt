@@ -539,6 +539,56 @@ class MomentPHPTest extends TestCase
   }
 
 
+  public function testIsBefore()
+  {
+    $dateBefore = '1980-12-06';
+    $dateAfter = '1980-12-08';
+
+    Assert::true($this->moment->isBefore($dateAfter));
+    Assert::false($this->moment->isBefore($dateBefore));
+
+    Assert::true($this->moment->isBefore(new DateTime));
+    Assert::false($this->moment->isBefore(DateTime::createFromFormat('Y-m-d', $dateBefore)));
+
+    Assert::true($this->moment->isBefore(new MomentPHP));
+    Assert::false($this->moment->isBefore(new MomentPHP($dateBefore)));
+
+    Assert::true($this->moment->isBefore(time()));
+    Assert::false($this->moment->isBefore(0));
+  }
+
+
+  /**
+   * @dataProvider getUnits
+   */
+  public function testIsBeforeWithUnits($unit)
+  {
+    $momentAfter = new MomentPHP('1980-12-07 19:21:42', null, 'Europe/Prague');
+    Assert::false($this->moment->isBefore($momentAfter, $unit));
+  }
+
+
+  public function getUnits()
+  {
+    return array(
+      array('sec'),
+      array('second'),
+      array('seconds'),
+      array('min'),
+      array('minute'),
+      array('minutes'),
+      array('hour'),
+      array('hours'),
+      array('day'),
+      array('days'),
+      array('month'),
+      array('months'),
+      array('year'),
+      array('years'),
+    );
+  }
+
+
   public function testIsMomentPHP()
   {
     Assert::true($this->moment->isMomentPHP(new MomentPHP));
