@@ -607,6 +607,37 @@ class MomentPHP
   }
 
 
+  /**
+   * Mutates the original moment by setting it to the start of a unit of time.
+   *
+   * @param string $unit
+   * @return $this
+   */
+  public function startOf($unit)
+  {
+    $unit = $this->normalizeUnits($unit);
+
+    $dateField = $this->asArray();
+
+    switch ($unit) {
+      case self::YEARS:
+        $dateField[self::MONTHS] = '01';
+      case self::MONTHS:
+        $dateField[self::DAYS] = '01';
+      case self::DAYS:
+        $dateField[self::HOURS] = '00';
+      case self::HOURS:
+        $dateField[self::MINUTES] = '00';
+      case self::MINUTES:
+        $dateField[self::SECONDS] = '00';
+    }
+
+    $this->modifyDateTime($dateField);
+
+    return $this;
+  }
+
+
   /************************************ QUERY ************************************/
 
   /**
