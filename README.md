@@ -213,6 +213,18 @@ $unit = 'day';
 var_dump( $moment->sub($number, $unit)->days() ); // string(2) "06"
 ```
 
+### startOf()
+Mutates the original moment by setting it to the start of a unit of time. Units is same as for `add()`.
+```php
+var_dump( $moment->isoDate() ); // string(25) "1980-12-07T19:21:42+01:00"
+
+var_dump( $moment->startOf('minutes')->isoDate() ); // string(25) "1980-12-07T19:21:00+01:00"
+var_dump( $moment->startOf('hours')->isoDate() ); // string(25) "1980-12-07T19:00:00+01:00"
+var_dump( $moment->startOf('days')->isoDate() ); // string(25) "1980-12-07T00:00:00+01:00"
+var_dump( $moment->startOf('months')->isoDate() ); // string(25) "1980-12-01T00:00:00+01:00"
+var_dump( $moment->startOf('years')->isoDate() ); // string(25) "1980-01-01T00:00:00+01:00"
+```
+
 ## Query
 
 ### isLeapYear()
@@ -233,6 +245,27 @@ var_dump( $moment->isDST() ); // bool(true)
 
 $moment = new MomentPHP\MomentPHP('12', 'm');
 var_dump( $moment->isDST() ); // bool(false)
+```
+
+### isBefore()
+Check if a moment is before another moment.
+```php
+var_dump( $moment->isBefore('1980-12-31') ); // bool(true)
+```
+
+If set unit, then beginning both dates set on the unit.
+```php
+var_dump( $moment->isBefore('1980-12-31', 'months') ); // bool(false)
+```
+
+### isAfter()
+Check if a moment is after another moment. It is the exact opposite method IsBefore().
+
+### isSame()
+Check if a moment is the same as another moment.
+```php
+var_dump( $moment->isSame('1980-12-07') ); // bool(false) because time for compare date is "00:00:00"
+var_dump( $moment->startOf('days')->isSame() ); // bool(true) because time for origin date set on "00:00:00"
 ```
 
 ### isMomentPHP()
