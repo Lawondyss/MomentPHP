@@ -654,15 +654,13 @@ class MomentPHP
    */
   public function isBefore($datetime, $unit = self::SECONDS)
   {
-    $unit = $this->normalizeUnits($unit);
-
     $compareMoment = new self($datetime);
     $originMoment = clone($this);
 
     $compareMoment->startOf($unit);
     $originMoment->startOf($unit);
 
-    $difference = $originMoment->diff($compareMoment, $unit);
+    $difference = $originMoment->diff($compareMoment);
 
     return ($difference < 0);
   }
