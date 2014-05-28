@@ -466,8 +466,8 @@ class MomentPHPTest extends TestCase
       array('hours', 167116),
       array('day', 6963),
       array('days', 6963),
-      array('month', 227),
-      array('months', 227),
+      array('month', 228),
+      array('months', 228),
       array('year', 19),
       array('years', 19),
     );
@@ -511,10 +511,10 @@ class MomentPHPTest extends TestCase
       array('hours', 167116.64),
       array('day', 6963.19),
       array('days', 6963.19),
-      array('month', 227.81),
-      array('months', 227.81),
-      array('year', 19.08),
-      array('years', 19.08),
+      array('month', 228.78),
+      array('months', 228.78),
+      array('year', 19.07),
+      array('years', 19.07),
     );
   }
 
@@ -563,6 +563,14 @@ class MomentPHPTest extends TestCase
    */
   public function testIsBeforeWithUnits($unit)
   {
+    $momentSame = new MomentPHP('1980-12-07 19:21:42', null, 'Europe/Prague');
+    Assert::false($this->moment->isBefore($momentSame, $unit));
+
+    $momentAfter = new MomentPHP('1981-12-07 19:21:42', null, 'Europe/Prague');
+    Assert::true($this->moment->isBefore($momentAfter, $unit));
+  }
+
+
     $momentAfter = new MomentPHP('1980-12-07 19:21:42', null, 'Europe/Prague');
     Assert::false($this->moment->isBefore($momentAfter, $unit));
   }

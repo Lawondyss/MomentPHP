@@ -465,68 +465,47 @@ class MomentPHP
       throw new InvalidArgumentException('Invalid type of datetime to difference.');
     }
 
-    $difference = $this->timestamp() - $diffMoment->timestamp();
-
-    $negative = false;
-    if ($difference < 0) {
-      $negative = true;
-      $difference = abs($difference);
-    }
-
     $unit = $this->normalizeUnits($unit);
 
-    switch ($unit) {
-      case self::SECONDS:
-        $diff = $difference;
-        break;
+    if ($unit === self::YEARS || $unit === self::MONTHS) {
+      // average number of days in the months in the given dates
+      $avgSecondsInMonth = ((int)$this->daysInMonth() + (int)$diffMoment->daysInMonth()) / 2 * 24 * 60 * 60;
 
-      case self::MINUTES:
-        $diff = $difference / 60;
-        break;
+      $differenceMonths = (((int)$this->years() - (int)$diffMoment->years()) * 12) + ((int)$this->months() - (int)$diffMoment->months());
 
-      case self::HOURS:
-        $diff = $difference / (60 * 60);
-        break;
+      $cloneThis = clone $this;
+      $cloneDiffMoment = clone $diffMoment;
 
-      case self::DAYS:
-        $diff = $difference / (24 * 60 * 60);
-        break;
+      $differenceDays = (($this->timestamp() - $cloneThis->startOf(self::MONTHS)->timestamp()) - ($diffMoment->timestamp() - $cloneDiffMoment->startOf(self::MONTHS)->timestamp())) / $avgSecondsInMonth;
+      $differenceTimezone = (($this->timezoneOffset() - $cloneThis->startOf(self::MONTHS)->timezoneOffset()) - ($diffMoment->timezoneOffset() - $cloneDiffMoment->startOf(self::MONTHS)->timezoneOffset())) / $avgSecondsInMonth;
+      $difference = $differenceMonths + $differenceDays - $differenceTimezone;
 
-      case self::MONTHS:
-        $months = (int)$this->months() - (int)$diffMoment->months();
-        $days = (int)$this->days() - (int)$diffMoment->days();
-        $avgDaysInMonth = ((int)$this->daysInMonth() + (int)$diffMoment->daysInMonth()) / 2;
-
-        $diff = ((int)$this->years() - (int)$diffMoment->years()) * 12 + $months + $days / $avgDaysInMonth;
-
-        if ($days < 0) {
-          $diff -= 1;
-        }
-        break;
-
-      case self::YEARS:
-        $months = (int)$this->months() - (int)$diffMoment->months();
-        if ($months >= 0) {
-          $diff = (int)$this->years() - (int)$diffMoment->years();
-        }
-        else {
-          $diff = (int)$this->years() - (int)$diffMoment->years() + ($months / 12);
-        }
-        break;
-    }
-
-    if ($negative) {
-      $diff *= -1;
-    }
-
-    if ($asFloat) {
-      $diff = round($diff, 2);
+      if ($unit === self::YEARS) {
+        $difference /= 12;
+      }
     }
     else {
-      $diff = (int)floor($diff);
+      $difference = $this->timestamp() - $diffMoment->timestamp();
+
+      switch ($unit) {
+        case self::MINUTES:
+          $difference /= 60;
+          break;
+
+        case self::HOURS:
+          $difference /= (60 * 60);
+          break;
+
+        case self::DAYS:
+          $difference /= (24 * 60 * 60);
+          break;
+      }
+
     }
 
-    return $diff;
+    $difference = $asFloat ? round($difference, 2) : (int)floor($difference);
+
+    return $difference;
   }
 
 
