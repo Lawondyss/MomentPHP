@@ -666,6 +666,49 @@ class MomentPHP
   }
 
 
+  /**
+   * Check if a moment is after another moment.
+   *
+   * @param MomentPHP|\DateTime|string|int $datetime
+   * @param string $unit
+   * @return bool
+   */
+  public function isAfter($datetime, $unit = self::SECONDS)
+  {
+    $compareMoment = new self($datetime);
+    $originMoment = clone($this);
+
+    $compareMoment->startOf($unit);
+    $originMoment->startOf($unit);
+
+    $difference = $originMoment->diff($compareMoment);
+
+    return ($difference > 0);
+  }
+
+
+  /**
+   * Check if a moment is same another moment.
+   *
+   * @param MomentPHP|\DateTime|string|int $datetime
+   * @param string $unit
+   * @return bool
+   */
+  public function isSame($datetime, $unit = self::SECONDS)
+  {
+    $compareMoment = new self($datetime);
+    $originMoment = clone($this);
+
+    $compareMoment->startOf($unit);
+    $originMoment->startOf($unit);
+
+    $difference = $originMoment->diff($compareMoment);
+
+    return ($difference == 0);
+  }
+
+
+  /**
    * Check if a variable is a MomentPHP object.
    *
    * @param mixed $moment
@@ -868,6 +911,16 @@ class MomentPHP
     $unit = $validUnits[$unit];
 
     return $unit;
+  }
+
+
+  /**
+   * @param array $fields Array with years, months, days, hours, minutes and seconds as keys.
+   */
+  public function modifyDateTime(array $fields)
+  {
+    $this->dateTime->setDate($fields[self::YEARS], $fields[self::MONTHS], $fields[self::DAYS]);
+    $this->dateTime->setTime($fields[self::HOURS], $fields[self::MINUTES], $fields[self::SECONDS]);
   }
 }
 

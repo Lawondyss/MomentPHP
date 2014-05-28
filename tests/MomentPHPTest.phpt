@@ -571,8 +571,50 @@ class MomentPHPTest extends TestCase
   }
 
 
+  public function testIsAfter()
+  {
+    $dateBefore = '1980-12-06';
+    $dateAfter = '1980-12-08';
+
+    Assert::false($this->moment->isAfter($dateAfter));
+    Assert::true($this->moment->isAfter($dateBefore));
+
+    Assert::false($this->moment->isAfter(new DateTime));
+    Assert::true($this->moment->isAfter(DateTime::createFromFormat('Y-m-d', $dateBefore)));
+
+    Assert::false($this->moment->isAfter(new MomentPHP));
+    Assert::true($this->moment->isAfter(new MomentPHP($dateBefore)));
+
+    Assert::false($this->moment->isAfter(time()));
+    Assert::true($this->moment->isAfter(0));
+  }
+
+
+  /**
+   * @dataProvider getUnits
+   */
+  public function testIsAfterWithUnits($unit)
+  {
     $momentAfter = new MomentPHP('1980-12-07 19:21:42', null, 'Europe/Prague');
     Assert::false($this->moment->isBefore($momentAfter, $unit));
+  }
+
+
+  public function testIsSame()
+  {
+    $dateSame = '1980-12-07 19:21:42 +01:00';
+
+    Assert::true($this->moment->isSame($dateSame));
+    Assert::true($this->moment->isSame(DateTime::createFromFormat('Y-m-d H:i:s P', $dateSame)));
+    Assert::true($this->moment->isSame(new MomentPHP($dateSame)));
+    Assert::true($this->moment->isSame(345061302));
+
+    $dateDifference = '1980-12-07 19:21:40 +01:00';
+
+    Assert::false($this->moment->isSame($dateDifference));
+    Assert::false($this->moment->isSame(DateTime::createFromFormat('Y-m-d H:i:s P', $dateDifference)));
+    Assert::false($this->moment->isSame(new MomentPHP($dateDifference)));
+    Assert::false($this->moment->isSame(0));
   }
 
 
