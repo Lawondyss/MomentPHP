@@ -547,6 +547,76 @@ class MomentPHP
   }
 
 
+  /**
+   * Return relation time from other time.
+   *
+   * @param MomentPHP|\DateTime|string|int $datetime
+   * @param bool $withoutSuffix
+   * @return string
+   */
+  public function from($datetime, $withoutSuffix = false)
+  {
+    $diffMoment = new self($datetime);
+
+    $diff = $this->diff($diffMoment);
+
+    $negation = ($diff < 0);
+    $diff = abs($diff);
+
+    $unit = self::SECONDS;
+    if ($diff > 45) {
+      $diff = abs($this->diff($diffMoment, self::MINUTES));
+      $unit = self::MINUTES;
+    }
+
+    if ($diff > 45 && $unit == self::MINUTES) {
+      $diff = abs($this->diff($diffMoment, self::HOURS, true));
+      $unit = self::HOURS;
+    }
+
+    if ($diff > 22 && $unit == self::HOURS) {
+      $diff = abs($this->diff($diffMoment, self::DAYS, true));
+      $unit = self::DAYS;
+    }
+
+    if ($diff > 25 && $unit == self::DAYS) {
+      $diff = abs($this->diff($diffMoment, self::MONTHS, true));
+      $unit = self::MONTHS;
+    }
+
+    if ($diff > 11 && $unit == self::MONTHS) {
+      $diff = abs($this->diff($diffMoment, self::YEARS, true));
+      $unit = self::YEARS;
+    }
+
+    $diff = round($diff);
+
+    $keys = array(
+      self::SECONDS => 's',
+      self::MINUTES => 'i',
+      self::HOURS => 'h',
+      self::DAYS => 'd',
+      self::MONTHS => 'm',
+      self::YEARS => 'y',
+    );
+
+    $key = $keys[$unit];
+
+    if ($diff > 1 && $unit != self::SECONDS) {
+      $key .= '+';
+    }
+
+    $lang = $this->lang['relativeTime'];
+    $output = sprintf($lang[$key], $diff);
+
+    if (!$withoutSuffix) {
+      $output = $negation ? sprintf($lang['future'], $output) : sprintf($lang['past'], $output);
+    }
+
+    return $output;
+  }
+
+
   /************************************ MANIPULATE ************************************/
 
   /**

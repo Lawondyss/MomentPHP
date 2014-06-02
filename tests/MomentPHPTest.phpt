@@ -340,6 +340,48 @@ class MomentPHPTest extends TestCase
   }
 
 
+  public function testFrom()
+  {
+    $clone = clone $this->moment;
+    $clone->add(45, 'sec');
+    Assert::same('in 45 seconds', $this->moment->from($clone));
+
+    $clone->add(1, 'sec');
+    Assert::same('in a minute', $this->moment->from($clone));
+
+    $clone->add(45, 'sec');
+    Assert::same('in 2 minutes', $this->moment->from($clone));
+
+    $clone = clone $this->moment;
+    $clone->add(45, 'min');
+    Assert::same('in 45 minutes', $this->moment->from($clone));
+
+    $clone->add(1, 'min');
+    Assert::same('in an hour', $this->moment->from($clone));
+
+    $clone = clone $this->moment;
+    $clone->add(22, 'hour');
+    Assert::same('in 22 hours', $this->moment->from($clone));
+
+    $clone->add(1, 'hour');
+    Assert::same('in a day', $this->moment->from($clone));
+
+    $clone = clone $this->moment;
+    $clone->add(25, 'days');
+    Assert::same('in 25 days', $this->moment->from($clone));
+
+    $clone->add(1, 'days');
+    Assert::same('in a month', $this->moment->from($clone));
+
+    $clone = clone $this->moment;
+    $clone->add(11, 'months');
+    Assert::same('in 11 months', $this->moment->from($clone));
+
+    $clone->add(1, 'months');
+    Assert::same('in a year', $this->moment->from($clone));
+  }
+
+
   /**
    * @dataProvider getValidIntervalUnits
    */
