@@ -64,9 +64,7 @@ class MomentPHP
    */
   public function __clone()
   {
-    $cloneMoment = new self($this);
-
-    return $cloneMoment;
+    $this->dateTime = clone $this->dateTime;
   }
 
 
