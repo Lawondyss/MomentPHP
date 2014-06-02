@@ -26,6 +26,25 @@ class MomentPHP
   /** @var \DateTime */
   private $dateTime;
 
+  /** @var array */
+  public $lang = array(
+    'relativeTime' => array(
+      'future' => 'in %s',
+      'past' => '%s ago',
+      's' => '%d seconds',
+      'i' => 'a minute',
+      'i+' => '%d minutes',
+      'h' => 'an hour',
+      'h+' => '%d hours',
+      'd' => 'a day',
+      'd+' => '%d days',
+      'm' => 'a month',
+      'm+' => '%d months',
+      'y' => 'a year',
+      'y+' => '%d years',
+    ),
+  );
+
 
   /**
    * @param \DateTime|MomentPHP|string|int|null $dateTime Instance of classes \DateTime or MomentPHP or string representing the time or timestamp or null for now.
