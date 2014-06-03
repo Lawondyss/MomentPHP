@@ -565,7 +565,7 @@ class MomentPHP
 
     $unit = self::SECONDS;
     if ($diff > 45) {
-      $diff = abs($this->diff($diffMoment, self::MINUTES));
+      $diff = abs($this->diff($diffMoment, self::MINUTES, true));
       $unit = self::MINUTES;
     }
 
