@@ -376,11 +376,39 @@ class MomentPHPTest extends TestCase
   }
 
 
+  /**
+   * @dataProvider getDataFrom
+   */
+  public function testFromNowBeforeTime($number, $unit, $result)
   {
+    $moment = new MomentPHP;
+    $moment->sub($number, $unit);
+    $result .= ' ago';
+    Assert::same($result, $moment->fromNow());
+  }
 
 
+  /**
+   * @dataProvider getDataFrom
+   */
+  public function testFromNowAfterTime($number, $unit, $result)
+  {
+    $moment = new MomentPHP;
+    $moment->add($number, $unit);
+    $result = 'in ' . $result;
+    Assert::same($result, $moment->fromNow());
+  }
 
 
+  /**
+   * @dataProvider getDataFrom
+   */
+  public function testFromNowWithoutSuffix($number, $unit, $result)
+  {
+    $moment = new MomentPHP;
+    $moment->add($number, $unit);
+    Assert::same($result, $moment->fromNow(true));
+  }
 
 
   public function getDataFrom()

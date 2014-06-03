@@ -622,6 +622,22 @@ class MomentPHP
   }
 
 
+  /**
+   * Return relation time from now.
+   *
+   * @param bool $withoutSuffix
+   * @return string
+   */
+  public function fromNow($withoutSuffix = false)
+  {
+    $now = new self;
+
+    $output = $now->from($this, $withoutSuffix);
+
+    return $output;
+  }
+
+
   /************************************ MANIPULATE ************************************/
 
   /**
