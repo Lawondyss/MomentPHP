@@ -593,6 +593,24 @@ class MomentPHPTest extends TestCase
   }
 
 
+  public function testEndOf()
+  {
+    $format = 'Y-m-d H:i:s';
+
+    Assert::same('1980-12-07 19:21:42', $this->moment->endOf(MomentPHP::SECONDS)->format($format));
+
+    Assert::same('1980-12-07 19:21:59', $this->moment->endOf(MomentPHP::MINUTES)->format($format));
+
+    Assert::same('1980-12-07 19:59:59', $this->moment->endOf(MomentPHP::HOURS)->format($format));
+
+    Assert::same('1980-12-07 23:59:59', $this->moment->endOf(MomentPHP::DAYS)->format($format));
+
+    Assert::same('1980-12-31 23:59:59', $this->moment->endOf(MomentPHP::MONTHS)->format($format));
+
+    Assert::same('1980-12-31 23:59:59', $this->moment->endOf(MomentPHP::YEARS)->format($format));
+  }
+
+
   /**
    * @dataProvider getFloatValidDiffUnits
    */

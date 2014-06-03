@@ -252,6 +252,18 @@ var_dump( $moment->startOf('months')->isoDate() ); // string(25) "1980-12-01T00:
 var_dump( $moment->startOf('years')->isoDate() ); // string(25) "1980-01-01T00:00:00+01:00"
 ```
 
+### endOf()
+Mutates the original moment by setting it to the end of a unit of time. Units is same as for `add()`.
+```php
+var_dump( $moment->isoDate() ); // string(25) "1980-12-07T19:21:42+00:00"
+
+var_dump( $moment->endOf('minutes')->isoDate() ); // string(25) "1980-12-07T19:21:59+00:00"
+var_dump( $moment->endOf('hours')->isoDate() ); // string(25) "1980-12-07T19:59:59+00:00"
+var_dump( $moment->endOf('days')->isoDate() ); // string(25) "1980-12-07T23:59:59+00:00"
+var_dump( $moment->endOf('months')->isoDate() ); // string(25) "1980-12-31T23:59:59+00:00"
+var_dump( $moment->endOf('years')->isoDate() ); // string(25) "1980-12-31T23:59:59+00:00"
+```
+
 ## Query
 
 ### isLeapYear()

@@ -725,6 +725,37 @@ class MomentPHP
   }
 
 
+  /**
+   * Mutates the original moment by setting it to the end of a unit of time.
+   *
+   * @param string $unit
+   * @return $this
+   */
+  public function endOf($unit)
+  {
+    $unit = $this->normalizeUnits($unit);
+
+    $dateField = $this->asArray();
+
+    switch ($unit) {
+      case self::YEARS:
+        $dateField[self::MONTHS] = '12';
+      case self::MONTHS:
+        $dateField[self::DAYS] = $this->daysInMonth();
+      case self::DAYS:
+        $dateField[self::HOURS] = '23';
+      case self::HOURS:
+        $dateField[self::MINUTES] = '59';
+      case self::MINUTES:
+        $dateField[self::SECONDS] = '59';
+    }
+
+    $this->modifyDateTime($dateField);
+
+    return $this;
+  }
+
+
   /************************************ QUERY ************************************/
 
   /**
