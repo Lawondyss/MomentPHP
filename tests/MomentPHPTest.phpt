@@ -340,118 +340,76 @@ class MomentPHPTest extends TestCase
   }
 
 
-  public function testFromAfterTime()
+  /**
+   * @dataProvider getDataFrom
+   */
+  public function testFromAfterTime($number, $unit, $result)
   {
     $clone = clone $this->moment;
-    $clone->add(45, 'sec');
-    Assert::same('in 45 seconds', $this->moment->from($clone));
-
-    $clone->add(1, 'sec');
-    Assert::same('in a minute', $this->moment->from($clone));
-
-    $clone->add(45, 'sec');
-    Assert::same('in 2 minutes', $this->moment->from($clone));
-
-    $clone = clone $this->moment;
-    $clone->add(45, 'min');
-    Assert::same('in 45 minutes', $this->moment->from($clone));
-
-    $clone->add(1, 'min');
-    Assert::same('in an hour', $this->moment->from($clone));
-
-    $clone = clone $this->moment;
-    $clone->add(22, 'hour');
-    Assert::same('in 22 hours', $this->moment->from($clone));
-
-    $clone->add(1, 'hour');
-    Assert::same('in a day', $this->moment->from($clone));
-
-    $clone = clone $this->moment;
-    $clone->add(25, 'days');
-    Assert::same('in 25 days', $this->moment->from($clone));
-
-    $clone->add(1, 'days');
-    Assert::same('in a month', $this->moment->from($clone));
-
-    $clone = clone $this->moment;
-    $clone->add(11, 'months');
-    Assert::same('in 11 months', $this->moment->from($clone));
-
-    $clone->add(1, 'months');
-    Assert::same('in a year', $this->moment->from($clone));
-
-    $clone->add(1, 'years');
-    Assert::same('in 2 years', $this->moment->from($clone));
+    $clone->add($number, $unit);
+    $result = 'in ' . $result;
+    Assert::same($result, $this->moment->from($clone));
   }
 
 
-  public function testFromBeforeTime()
+  /**
+   * @dataProvider getDataFrom
+   */
+  public function testFromBeforeTime($number, $unit, $result)
   {
     $clone = clone $this->moment;
-    $clone->sub(45, 'sec');
-    Assert::same('45 seconds ago', $this->moment->from($clone));
-
-    $clone->sub(1, 'sec');
-    Assert::same('a minute ago', $this->moment->from($clone));
-
-    $clone->sub(45, 'sec');
-    Assert::same('2 minutes ago', $this->moment->from($clone));
-
-    $clone = clone $this->moment;
-    $clone->sub(45, 'min');
-    Assert::same('45 minutes ago', $this->moment->from($clone));
-
-    $clone->sub(1, 'min');
-    Assert::same('an hour ago', $this->moment->from($clone));
-
-    $clone = clone $this->moment;
-    $clone->sub(22, 'hour');
-    Assert::same('22 hours ago', $this->moment->from($clone));
-
-    $clone->sub(1, 'hour');
-    Assert::same('a day ago', $this->moment->from($clone));
-
-    $clone = clone $this->moment;
-    $clone->sub(25, 'days');
-    Assert::same('25 days ago', $this->moment->from($clone));
-
-    $clone->sub(1, 'days');
-    Assert::same('a month ago', $this->moment->from($clone));
-
-    $clone = clone $this->moment;
-    $clone->sub(11, 'months');
-    Assert::same('11 months ago', $this->moment->from($clone));
-
-    $clone->sub(1, 'months');
-    Assert::same('a year ago', $this->moment->from($clone));
-
-    $clone->sub(1, 'years');
-    Assert::same('2 years ago', $this->moment->from($clone));
+    $clone->sub($number, $unit);
+    $result .= ' ago';
+    Assert::same($result, $this->moment->from($clone));
   }
 
 
-  public function testFromWithoutSuffix()
+  /**
+   * @dataProvider getDataFrom
+   */
+  public function testFromWithoutSuffix($number, $unit, $result)
   {
     $clone = clone $this->moment;
-    $clone->add(45, 'sec');
-    Assert::same('45 seconds', $this->moment->from($clone, true));
+    $clone->add($number, $unit);
+    Assert::same($result, $this->moment->from($clone, true));
 
-    $clone->add(1, 'sec');
-    Assert::same('a minute', $this->moment->from($clone, true));
+  }
 
-    $clone->add(45, 'sec');
-    Assert::same('2 minutes', $this->moment->from($clone, true));
 
-    $clone = clone $this->moment;
-    $clone->sub(45, 'sec');
-    Assert::same('45 seconds', $this->moment->from($clone, true));
+  {
 
-    $clone->sub(1, 'sec');
-    Assert::same('a minute', $this->moment->from($clone, true));
 
-    $clone->sub(45, 'sec');
-    Assert::same('2 minutes', $this->moment->from($clone, true));
 
+
+
+
+  public function getDataFrom()
+  {
+    return array(
+      array(44, 'sec', '44 seconds'),
+      array(45, 'sec', 'a minute'),
+      array(89, 'sec', 'a minute'),
+      array(90, 'sec', '2 minutes'),
+
+      array(44, 'min', '44 minutes'),
+      array(45, 'min', 'an hour'),
+      array(89, 'min', 'an hour'),
+      array(90, 'min', '2 hours'),
+
+      array(21, 'hours', '21 hours'),
+      array(22, 'hours', 'a day'),
+      array(35, 'hours', 'a day'),
+      array(36, 'hours', '2 days'),
+
+      array(24, 'days', '24 days'),
+      array(26, 'days', 'a month'),
+      array(45, 'days', 'a month'),
+
+      array(10, 'months', '10 months'),
+      array(12, 'months', 'a year'),
+      array(17, 'months', 'a year'),
+      array(18, 'months', '2 years'),
+    );
   }
 
 

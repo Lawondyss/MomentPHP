@@ -564,27 +564,32 @@ class MomentPHP
     $diff = abs($diff);
 
     $unit = self::SECONDS;
-    if ($diff > 45) {
+
+    // display seconds from 0 to 44 seconds
+    if ($diff >= 45) {
       $diff = abs($this->diff($diffMoment, self::MINUTES, true));
       $unit = self::MINUTES;
     }
 
-    if ($diff > 45 && $unit == self::MINUTES) {
+    // display minutes from 45 to 89 minutes
+    if ($diff >= 45 && $unit == self::MINUTES) {
       $diff = abs($this->diff($diffMoment, self::HOURS, true));
       $unit = self::HOURS;
     }
 
-    if ($diff > 22 && $unit == self::HOURS) {
+    // display hours from 22 to 36 hours
+    if ($diff >= 22 && $unit == self::HOURS) {
       $diff = abs($this->diff($diffMoment, self::DAYS, true));
       $unit = self::DAYS;
     }
 
-    if ($diff > 25 && $unit == self::DAYS) {
+    // display months from 25 to 345 days (to 1.5 year)
+    if ($diff >= 25 && $diff < 345 && $unit == self::DAYS) {
       $diff = abs($this->diff($diffMoment, self::MONTHS, true));
       $unit = self::MONTHS;
     }
-
-    if ($diff > 11 && $unit == self::MONTHS) {
+    // display years from 345 days
+    elseif ($diff >= 345 && $unit == self::DAYS) {
       $diff = abs($this->diff($diffMoment, self::YEARS, true));
       $unit = self::YEARS;
     }
