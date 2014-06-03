@@ -184,6 +184,33 @@ By default return number rounded down. If you want the floating point number, pa
 var_dump( $momentB->diff($moment, 'months', true) ); // double(227.81)
 ```
 
+### from()
+A common way of displaying time. This is sometimes called timeago or relative time.
+```php
+$momentA = new MomentPHP('1980-12-07');
+$momentB = new MomentPHP('1980-12-08');
+
+var_dump( $momentA->from($momentB) ); // string(8) "in a day"
+var_dump( $momentB->from($momentA) ); // string(9) "a day ago"
+```
+If you can get the value without the suffix, then set second argument as `TRUE`.
+```php
+$momentA = new MomentPHP('1980-12-07');
+$momentB = new MomentPHP('1980-12-08');
+
+var_dump( $momentA->from($momentB, true) ); // string(5) "a day"
+var_dump( $momentB->from($momentA, true) ); // string(5) "a day"
+```
+
+### fromNow()
+It's equal as `from()`, but starting time is now.
+```php
+$moment = new MomentPHP;
+$moment->add(1, 'day');
+
+var_dump( $moment->fromNow() ); // string(8) "in a day"
+```
+
 
 ## Manipulate
 
