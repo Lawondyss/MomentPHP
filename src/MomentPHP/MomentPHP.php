@@ -10,6 +10,8 @@ namespace MomentPHP;
 
 class MomentPHP
 {
+  const VERSION = '1.1';
+
   const SECONDS = 'seconds';
 
   const MINUTES = 'minutes';
@@ -50,6 +52,7 @@ class MomentPHP
    * @param \DateTime|MomentPHP|string|int|null $dateTime Instance of classes \DateTime or MomentPHP or string representing the time or timestamp or null for now.
    * @param array|string|null $format Field formats or simple formatting options, see http://php.net/manual/en/datetime.createfromformat.php
    * @param \DateTimeZone|string|null $timeZone Supported Timezones, see http://php.net/manual/en/timezones.php
+   * @throws InvalidArgumentException
    */
   public function __construct($dateTime = null, $format = null, $timeZone = null)
   {
@@ -59,21 +62,36 @@ class MomentPHP
 
     $timeZone = $this->createDateTimeZone($timeZone);
 
-    // set dateTime by type
-    if (!isset($dateTime)) {
-      $this->dateTime = new \DateTime('now', $timeZone);
+    try {
+      // set dateTime by type
+      if (!isset($dateTime)) {
+        $this->dateTime = new \DateTime('now', $timeZone);
+      }
+      elseif ($dateTime instanceof \DateTime) {
+        $this->dateTime = $dateTime;
+      }
+      elseif ($dateTime instanceof MomentPHP) {
+        $this->dateTime = $dateTime->dateTime;
+      }
+      elseif (is_string($dateTime)) {
+        $this->dateTime = $this->fromFormat($dateTime, $format, $timeZone);
+      }
+      elseif (is_int($dateTime)) {
+        $this->dateTime = $this->fromFormat($dateTime, 'U', $timeZone);
+      }
     }
-    elseif ($dateTime instanceof \DateTime) {
-      $this->dateTime = $dateTime;
+    catch (\Exception $e) {
+      throw new InvalidArgumentException($e->getMessage());
     }
-    elseif ($dateTime instanceof MomentPHP) {
-      $this->dateTime = $dateTime->dateTime;
+
+    $error = $this->dateTime->getLastErrors();
+    if ($error['warning_count'] > 0) {
+      $msg = 'WARNINGS: ' . join('; ', $error['warnings']);
+      throw new InvalidArgumentException($msg);
     }
-    elseif (is_string($dateTime)) {
-      $this->dateTime = $this->fromFormat($dateTime, $format, $timeZone);
-    }
-    elseif (is_int($dateTime)) {
-      $this->dateTime = $this->fromFormat($dateTime, 'U', $timeZone);
+    if ($error['error_count'] > 0) {
+      $msg = 'ERRORS: ' . join('; ', $error['errors']);
+      throw new InvalidArgumentException($msg);
     }
   }
 
