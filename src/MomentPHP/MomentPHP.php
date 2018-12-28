@@ -678,7 +678,8 @@ class MomentPHP
       $expression = $this->getIntervalExpression($number, $unit);
       $interval = \DateInterval::createFromDateString($expression);
     }
-
+    else throw new ErrorException('Invalid number: '.$number);
+    
     $this->dateTime->add($interval);
 
     return $this;
